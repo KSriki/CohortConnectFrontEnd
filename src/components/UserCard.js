@@ -2,14 +2,11 @@ import React from "react";
 import { Card, Icon, Image } from "semantic-ui-react";
 
 export default class UserCard extends React.Component {
-
-
-handleStatus = (e) => {
-  setTimeout(function (e) {
-    console.log(e.target.value), 500
-  }
-}
-
+  // handleStatus = (e) => {
+  //   setTimeout(function (e) {
+  //     console.log(e.target.value), 500
+  //   }
+  // }
 
   render() {
     let user = this.props.user;
@@ -21,7 +18,9 @@ handleStatus = (e) => {
           <Card.Meta>
             <span className="date">{user.github_identifier}</span>
           </Card.Meta>
-          <Card.Description>{user.bio ? user.bio : "Flatiron Cohort - 082718"}</Card.Description>
+          <Card.Description>
+            {user.bio ? user.bio : "Flatiron Cohort - 082718"}
+          </Card.Description>
         </Card.Content>
         <Card.Content>
           <p>
@@ -32,7 +31,11 @@ handleStatus = (e) => {
         <Card.Content className="extra content">
           <div className="ui large transparent left icon input">
             <i className="heart outline icon" />
-            <input onChange={this.handleStatus} type="text" placeholder="Set status..." />
+            <input
+              onChange={this.handleStatus}
+              type="text"
+              placeholder="Set status..."
+            />
           </div>
         </Card.Content>
       </Card>
