@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 
 import UserCard from "../components/UserCard";
+import DetailsContainer from "./DetailsContainer";
 import { Grid } from "semantic-ui-react";
+
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 
 export default class ConnectContainer extends Component {
   constructor() {
@@ -17,9 +21,8 @@ export default class ConnectContainer extends Component {
       .then(json => this.setState({ users: json }));
   }
 
-  render() {
-    return (
-      <Grid columns={3} >
+  index = () => {
+      return (<Grid columns={3} >
         <Grid.Row>
           {this.state.users.map(user => {
             return (
@@ -29,7 +32,22 @@ export default class ConnectContainer extends Component {
             );
           })}
         </Grid.Row>
-      </Grid>
+      </Grid>)
+  }
+
+  details = () => {
+      return (<DetailsContainer users={this.state.users}/>)
+  }
+
+  render() {
+    return (
+        <Router>
+            <Switch>
+                <Route exact path="/" component={this.index}/>
+                {/* both /details and /details id begin with /detail */}
+                <Route path="/details" component={this.details} />
+            </Switch>
+        </Router>
     );
   }
 }
