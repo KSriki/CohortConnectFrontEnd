@@ -3,15 +3,13 @@ import React, { Component } from "react";
 import UserCard from "../components/UserCard";
 import DetailsContainer from "./DetailsContainer";
 import { Grid } from "semantic-ui-react";
-
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-
+import UserDetails from "../components/UserDetails";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 export default class ConnectContainer extends Component {
   constructor() {
     super();
     this.state = {
-      currentUser: 0,
       users: []
     };
   }
@@ -22,39 +20,59 @@ export default class ConnectContainer extends Component {
   }
 
   addStatus = (event, props) => {
-
-    console.log('added status for: ')
-  }
-
+    // for submitting user's current status to DB
+    // TODO
+    console.log("added status for: ");
+  };
 
   index = () => {
-      return (<Grid columns={3} >
+    return (
+      <Grid columns={3}>
         <Grid.Row>
           {this.state.users.map(user => {
             return (
               <Grid.Column key={user.id}>
-                <Link to={`/details/${user.id}`}><UserCard key={user.id} user={user} /></Link>
+                <Link to={`/${user.login}`}>
+                  <UserCard key={user.id} userObj={user} />
+                </Link>
               </Grid.Column>
             );
           })}
         </Grid.Row>
-      </Grid>)
-  }
+      </Grid>
+    );
+  };
 
-  details = (props) => {
-      
-      return (<DetailsContainer {...props} addStatus={this.addStatus} users={this.state.users}/>)
-  }
+  details = props => {
+    return (
+      <DetailsContainer
+        {...props}
+        addStatus={this.addStatus}
+        users={this.state.users}
+      />
+    );
+  };
+
+  showUserDetails = props => {
+    return (
+      <UserDetails
+        userObj={this.state.users.find(
+          user => user.login === props.match.params.username
+        )}
+        addStatus={this.addStatus}
+      />
+    );
+  };
 
   render() {
     return (
-        <Router>
-            <Switch>
-                <Route exact path="/" component={this.index}/>
-                {/* both /details and /details id begin with /detail */}
-                <Route path="/details"  component={this.details} />
-            </Switch>
-        </Router>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={this.index} />
+          {/* both /details and /details id begin with /detail */}
+          <Route path="/:username" render={this.showUserDetails} />
+        </Switch>
+      </Router>
     );
   }
 }
