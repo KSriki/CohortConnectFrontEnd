@@ -17,7 +17,7 @@ import UserDetails from '../components/UserDetails'
          //// <Route exact path='/details' component={FullRoster}/>
          return (
              <Switch>
-             <Route path='/details/:number' component={(props) => <UserDetails {...props} users={this.props.users} />}/>
+             <Route path='/details/:number' component={(props) => <UserDetails {...props} addStatus={this.props.addStatus} users={this.props.users} />}/>
              </Switch>
          );
 

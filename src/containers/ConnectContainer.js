@@ -21,6 +21,12 @@ export default class ConnectContainer extends Component {
       .then(json => this.setState({ users: json }));
   }
 
+  addStatus = (event, props) => {
+
+    console.log('added status for: ')
+  }
+
+
   index = () => {
       return (<Grid columns={3} >
         <Grid.Row>
@@ -35,8 +41,9 @@ export default class ConnectContainer extends Component {
       </Grid>)
   }
 
-  details = () => {
-      return (<DetailsContainer users={this.state.users}/>)
+  details = (props) => {
+      
+      return (<DetailsContainer {...props} addStatus={this.addStatus} users={this.state.users}/>)
   }
 
   render() {
@@ -45,7 +52,7 @@ export default class ConnectContainer extends Component {
             <Switch>
                 <Route exact path="/" component={this.index}/>
                 {/* both /details and /details id begin with /detail */}
-                <Route path="/details" component={this.details} />
+                <Route path="/details"  component={this.details} />
             </Switch>
         </Router>
     );

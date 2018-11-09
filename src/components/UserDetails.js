@@ -1,5 +1,6 @@
 import React from 'react'
 import UserCard from './UserCard'
+import StatusForm from './StatusForm'
 
 export default class UserDetails extends React.Component {
 
@@ -10,7 +11,7 @@ export default class UserDetails extends React.Component {
             if (this.props.users.find(user => user.id === parseInt(this.props.match.params.number))) {
                 console.log("Found id")
                 let detail = this.props.users.find(user => user.id === parseInt(this.props.match.params.number));
-                return (<UserCard user={detail}/>);
+                return (<div><UserCard user={detail}/> <StatusForm user={detail} addStatus={this.props.addStatus} /></div>);
             } else {
                 console.log("cant find id")
                 return (<div>FAILED</div>)
