@@ -6,6 +6,8 @@ import { Grid } from "semantic-ui-react";
 import UserDetails from "../components/UserDetails";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
+const STATUS_URL = "http://localhost:3000/daily_status/create";
+
 export default class ConnectContainer extends Component {
   constructor() {
     super();
@@ -19,10 +21,23 @@ export default class ConnectContainer extends Component {
       .then(json => this.setState({ users: json }));
   }
 
-  addStatus = (event, props) => {
+  addStatus = (event, userID) => {
     // for submitting user's current status to DB
     // TODO
     console.log("added status for: ");
+
+    let input = event.currentTarget.statusInput.value;
+    let body = { dailyStatus: {user_id: userID, status: input} };
+    fetch(STATUS_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify(body)
+    })
+      .then(r => r.json())
+      .then(console.log);
   };
 
   index = () => {

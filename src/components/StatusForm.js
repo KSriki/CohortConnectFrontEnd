@@ -6,7 +6,7 @@ class StatusForm extends React.Component {
   handleFormSubmit = e => {
     e.preventDefault();
     this.props.addStatus(e, this.props.user.id)
-    console.log("made new status");
+
   };
 
   render() {
