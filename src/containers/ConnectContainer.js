@@ -4,7 +4,7 @@ import UserCard from "../components/UserCard";
 import DetailsContainer from "./DetailsContainer";
 import { Grid } from "semantic-ui-react";
 
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 
 export default class ConnectContainer extends Component {
@@ -27,7 +27,7 @@ export default class ConnectContainer extends Component {
           {this.state.users.map(user => {
             return (
               <Grid.Column key={user.id}>
-                <UserCard key={user.id} user={user} />
+                <Link to={`/details/${user.id}`}><UserCard key={user.id} user={user} /></Link>
               </Grid.Column>
             );
           })}
