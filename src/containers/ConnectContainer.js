@@ -12,14 +12,30 @@ export default class ConnectContainer extends Component {
   constructor() {
     super();
     this.state = {
-      users: []
+      users: [],
+      allStatus: []
     };
   }
   componentDidMount() {
-    fetch(`http://localhost:3000/users/`)
-      .then(resp => resp.json())
-      .then(json => this.setState({ users: json }));
+
+
+     this.getAllUsers();
+     this.getAllStatus();
   }
+
+  getAllUsers = () => {
+      fetch(`http://localhost:3000/users/`)
+        .then(resp => resp.json())
+        .then(json => this.setState({ users: json }));
+  }
+
+
+  getAllStatus = () => {
+      fetch(`http://localhost:3000/daily_status/`)
+        .then(resp => resp.json())
+        .then(json => this.setState({ allStatus: json }));
+  }
+
 
   addStatus = (event, userID) => {
     // for submitting user's current status to DB
@@ -68,13 +84,37 @@ export default class ConnectContainer extends Component {
     );
   };
 
+
+  findUserByUserName = (username) => {
+
+     return this.state.users.find(
+        user => user.login === username
+      )
+  }
+
+  findUserIdByUserName = (username) => {
+
+      let user = (this.state.users.find(
+        user => user.login === username
+    ));
+
+    return user.id;
+
+  }
+
+
+
   showUserDetails = props => {
+      console.log(props);
     return (
       <UserDetails
-        userObj={this.state.users.find(
-          user => user.login === props.match.params.username
-        )}
+        userObj={this.findUserByUserName(props.match.params.username)}
         addStatus={this.addStatus}
+        allUserStatuses={
+            this.state.allStatus.filter(
+                (status) => {return status.user_id === this.findUserIdByUserName(props.match.params.username)}
+            )
+        }
       />
     );
   };
