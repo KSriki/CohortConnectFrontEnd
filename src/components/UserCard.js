@@ -1,12 +1,12 @@
 import React from "react";
 import { Card, Icon, Image } from "semantic-ui-react";
+import StatusForm from './StatusForm'
 
 export default class UserCard extends React.Component {
-  // handleStatus = (e) => {
-  //   setTimeout(function (e) {
-  //     console.log(e.target.value), 500
-  //   }
-  // }
+
+  handleStatus=(props)=>{
+    console.log(props)
+  }
 
   render() {
     let user = this.props.user;
@@ -29,14 +29,7 @@ export default class UserCard extends React.Component {
           </p>
         </Card.Content>
         <Card.Content className="extra content">
-          <div className="ui large transparent left icon input">
-            <i className="heart outline icon" />
-            <input
-              onChange={this.handleStatus}
-              type="text"
-              placeholder="Set status..."
-            />
-          </div>
+          <StatusForm />
         </Card.Content>
       </Card>
     );
