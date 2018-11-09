@@ -10,6 +10,7 @@ export default class UserCard extends React.Component {
 
   render() {
     let user = this.props.userObj;
+
     return (
       <Card className="ui card">
         <Image src={user.avatar_url} alt="broken" />

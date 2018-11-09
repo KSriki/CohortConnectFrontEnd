@@ -21,19 +21,29 @@ export default class ConnectContainer extends Component {
 
      this.getAllUsers();
      this.getAllStatus();
+
+
   }
 
   getAllUsers = () => {
       fetch(`http://localhost:3000/users/`)
         .then(resp => resp.json())
-        .then(json => this.setState({ users: json }));
+        .then(json => {
+            this.setState({ users: json });
+            // localStorage.users = JSON.stringify(this.state.users);
+        });
+
   }
 
 
   getAllStatus = () => {
       fetch(`http://localhost:3000/daily_status/`)
         .then(resp => resp.json())
-        .then(json => this.setState({ allStatus: json }));
+        .then(json => {
+            this.setState({ allStatus: json });
+            // localStorage.allStatus = JSON.stringify(this.state.allStatus);
+        });
+
   }
 
 
@@ -125,6 +135,7 @@ export default class ConnectContainer extends Component {
         <Switch>
           <Route exact path="/" component={this.index} />
           {/* both /details and /details id begin with /detail */}
+
           <Route path="/:username" render={this.showUserDetails} />
         </Switch>
       </Router>
