@@ -28,6 +28,7 @@ export default class UserCard extends React.Component {
           <Card.Description>
           <Container>
           <strong>Latest Activity:</strong><br/>
+          {/* eslint-disable-next-line */}
           <Event eventObj={this.props.latestEvent} userObj={user} />
           </Container>
           </Card.Description>
