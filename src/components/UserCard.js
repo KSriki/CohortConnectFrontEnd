@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Icon, Image } from "semantic-ui-react";
+import Event from "./Event.js"
 
 
 export default class UserCard extends React.Component {
@@ -17,7 +18,7 @@ export default class UserCard extends React.Component {
             <strong>Latest Status:</strong><br/> {this.props.lastestStatus}
           </Card.Description>
           <Card.Description>
-          "event"
+          <Event eventObj={this.props.latestEvent} userObj={user} />
           </Card.Description>
         </Card.Content>
         <Card.Content>
