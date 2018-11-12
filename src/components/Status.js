@@ -3,18 +3,28 @@ import React from 'react'
 import {Feed, Icon} from 'semantic-ui-react'
 
 
+//finds the difference in todays date and the date the post was made
 function getDifference(status_date){
 
+    //get todays date
     let today = new Date();
 
+    //default value to return is
+    //the posts creation date in a readable format using toLocaleDateString
+    //example: 11/7/2018
     let ago = status_date.toLocaleDateString();
 
+    //gets the difference in milliseconds
     let difference = today - status_date;
+
+    //get seconds from milliseconds and round down
     let seconds = Math.floor(difference / 1000);
 
+    //
     if (seconds === 0) {
         ago = "Just now";
     } else {
+        //get minutes from seconds
         let minutes = Math.floor(seconds / 60);
         if (minutes === 0) {
             if (seconds === 1) {
@@ -24,6 +34,7 @@ function getDifference(status_date){
             }
 
         } else {
+            //get hours from minutes
             let hours = Math.floor(minutes / 60);
             if (hours === 0) {
                 if (minutes === 1) {
@@ -32,6 +43,7 @@ function getDifference(status_date){
                     ago = `${minutes} minutes ago`
                 }
             } else {
+                //get days from hours
                 let days = Math.floor(hours / 24);
                 if (days === 0) {
                     if (hours === 1) {
@@ -40,6 +52,7 @@ function getDifference(status_date){
                         ago = `${hours} hours ago`
                     }
                 } else {
+                    //1 day vs many days
                     if (days === 1) {
                         ago = `${days} day ago`
                     } else {
