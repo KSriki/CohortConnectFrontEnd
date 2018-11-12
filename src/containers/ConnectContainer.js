@@ -17,46 +17,36 @@ export default class ConnectContainer extends Component {
     };
   }
   componentDidMount() {
-
-
-     this.getAllUsers();
-     this.getAllStatus();
-
+    this.getAllUsers();
+    this.getAllStatus();
   }
 
   getAllUsers = () => {
-      fetch(`http://localhost:3000/users/`)
-        .then(resp => resp.json())
-        .then(json => {
-            this.setState({ users: json });
-            // localStorage.users = JSON.stringify(this.state.users);
-        });
-
-  }
-
+    fetch(`http://localhost:3000/users/`)
+      .then(resp => resp.json())
+      .then(json => {
+        this.setState({ users: json });
+        // localStorage.users = JSON.stringify(this.state.users);
+      });
+  };
 
   getAllStatus = () => {
-      fetch(`http://localhost:3000/daily_status/`)
-        .then(resp => resp.json())
-        .then(json => {
-            this.setState({ allStatus: json.reverse() });
-            // localStorage.allStatus = JSON.stringify(this.state.allStatus);
-        });
-
-  }
-
+    fetch(`http://localhost:3000/daily_status/`)
+      .then(resp => resp.json())
+      .then(json => {
+        this.setState({ allStatus: json.reverse() });
+      });
+  };
 
   addStatus = (event, userID) => {
-    // for submitting user's current status to DB
-    // TODO
     console.log("added status for: ");
 
     let input = event.currentTarget.statusInput.value;
-    if(input.trim().length === 0){
-        alert("Please enter a status!")
-        return;
+    if (input.trim().length === 0) {
+      alert("Please enter a status!");
+      return;
     }
-    let body = { dailyStatus: {user_id: userID, status: input} };
+    let body = { dailyStatus: { user_id: userID, status: input } };
     fetch(STATUS_URL, {
       method: "POST",
       headers: {
@@ -67,20 +57,25 @@ export default class ConnectContainer extends Component {
     })
       .then(r => r.json())
       .then(status => {
-          this.setState({allStatus: [status, ...this.state.allStatus]});
+        this.setState({ allStatus: [status, ...this.state.allStatus] });
       });
-     event.currentTarget.reset();
-  }
+    event.currentTarget.reset();
+  };
 
   index = () => {
     return (
-      <Grid columns={3}>
+      <Grid columns={5}>
         <Grid.Row>
           {this.state.users.map(user => {
+            let lastStatus = this.findLastUserStatusesById(user.id)
             return (
               <Grid.Column key={user.id}>
                 <Link to={`/${user.login}`}>
-                  <UserCard key={user.id} userObj={user} />
+                  <UserCard
+                    key={user.id}
+                    userObj={user}
+                    lastestStatus={lastStatus}
+                  />
                 </Link>
               </Grid.Column>
             );
@@ -88,6 +83,18 @@ export default class ConnectContainer extends Component {
         </Grid.Row>
       </Grid>
     );
+  };
+
+  //Filters through all statuses and returns the latest
+  findLastUserStatusesById = user_id => {
+    let lastStatus = this.state.allStatus.filter(status => {
+      return status.user_id === user_id;
+    })[0];
+    if (lastStatus == undefined){
+      return "No status ever"
+    } else {
+      return lastStatus.status
+    }
   };
 
   details = props => {
@@ -100,37 +107,27 @@ export default class ConnectContainer extends Component {
     );
   };
 
+  findUserByUserName = username => {
+    return this.state.users.find(user => user.login === username);
+  };
 
-  findUserByUserName = (username) => {
-
-     return this.state.users.find(
-        user => user.login === username
-      )
-  }
-
-  findUserIdByUserName = (username) => {
-
-      let user = (this.state.users.find(
-        user => user.login === username
-    ));
-
+  findUserIdByUserName = username => {
+    let user = this.state.users.find(user => user.login === username);
     return user.id;
-
-  }
-
-
+  };
 
   showUserDetails = props => {
-      console.log(props);
+    console.log(props);
     return (
       <UserDetailsContainer
         userObj={this.findUserByUserName(props.match.params.username)}
         addStatus={this.addStatus}
-        allUserStatuses={
-            this.state.allStatus.filter(
-                (status) => {return status.user_id === this.findUserIdByUserName(props.match.params.username)}
-            )
-        }
+        allUserStatuses={this.state.allStatus.filter(status => {
+          return (
+            status.user_id ===
+            this.findUserIdByUserName(props.match.params.username)
+          );
+        })}
       />
     );
   };
@@ -141,7 +138,6 @@ export default class ConnectContainer extends Component {
         <Switch>
           <Route exact path="/" component={this.index} />
           {/* both /details and /details id begin with /detail */}
-
           <Route path="/:username" render={this.showUserDetails} />
         </Switch>
       </Router>

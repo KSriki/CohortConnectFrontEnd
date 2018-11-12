@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Feed, Icon } from "semantic-ui-react";
+import { Feed } from "semantic-ui-react";
 
 //finds the difference in todays date and the date the post was made
 function getDifference(status_date) {
@@ -82,6 +82,7 @@ export default class Status extends React.Component {
         <Feed.Label image={user.avatar_url} />
         <Feed.Content>
           <Feed.Summary>
+          {/* eslint-disable-next-line */}
             <a onClick={()=> window.open(user.html_url, "_blank")}>{user.login}</a>{" "}
             <Feed.Date>{ago}</Feed.Date>
           </Feed.Summary>

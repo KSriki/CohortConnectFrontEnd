@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Feed, Icon } from "semantic-ui-react";
+import { Feed} from "semantic-ui-react";
 
 export default class Event extends React.Component {
   render() {
@@ -17,6 +17,7 @@ export default class Event extends React.Component {
             <Feed.Date>{gitEvent.time_of_event}</Feed.Date>
           </Feed.Summary>
           <Feed.Extra text>
+          {/* eslint-disable-next-line */}
             <a onClick={() => window.open(repo_url, "_blank")}>
               {gitEvent.repo_name}
             </a>
