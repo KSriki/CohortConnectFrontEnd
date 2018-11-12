@@ -8,6 +8,11 @@ class App extends Component {
       <div className="App">
 
             <ConnectContainer />
+            <div className="ui footer">
+              <div>
+             Cohort Connect | 2018 | "Puts Rspec on My Name"
+             </div>
+             </div>
       </div>
     );
   }
