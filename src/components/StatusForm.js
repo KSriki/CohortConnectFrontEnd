@@ -13,7 +13,7 @@ class StatusForm extends React.Component {
     return (
       <div className="ui large transparent left icon input">
         <form onSubmit={this.handleFormSubmit}>
-          <input type="text" name="statusInput" placeholder="Set status..." />
+          <input type="text" name="statusInput" placeholder="Set new status..." />
           <button className="ui outline icon button" type="submit">
             <i className="code icon"/>
           </button>

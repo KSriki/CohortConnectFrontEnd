@@ -10,7 +10,7 @@ export default class UserCard extends React.Component {
 
   render() {
     let user = this.props.userObj;
-    let avatar_url = "some random link"
+    let avatar_url = "Loading..."
     let login = "Octocat"
     if (user) {
       avatar_url = user.avatar_url

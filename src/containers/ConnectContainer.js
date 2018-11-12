@@ -12,15 +12,14 @@ const STATUS_URL = "http://localhost:3000/daily_status/create";
 export function getDifference(status_date) {
   //get todays date
   let today = new Date();
-  //default value to return is
-  //the posts creation date in a readable format using toLocaleDateString
+  //Return post or event creation date in a readable format using toLocaleDateString
   //example: 11/7/2018
   let ago = status_date.toLocaleDateString();
-  //gets the difference in milliseconds
+  // first gets the difference in milliseconds
   let difference = today - status_date;
-  //get seconds from milliseconds and round down
+  // then get seconds from milliseconds and round down
   let seconds = Math.floor(difference / 1000);
-  //
+
   if (seconds === 0) {
     ago = "Just now";
   } else {
@@ -61,7 +60,6 @@ export function getDifference(status_date) {
       }
     }
   }
-
   return ago;
 }
 
@@ -81,6 +79,23 @@ export default class ConnectContainer extends Component {
     this.getAllEvents();
   }
 
+  getAllUsers = () => {
+    fetch(`http://localhost:3000/users/`)
+    .then(resp => resp.json())
+    .then(json => {
+      this.setState({ users: json });
+    })
+    .then(this.getAllEvents);
+  };
+
+  getAllStatus = () => {
+    fetch(`http://localhost:3000/daily_status/`)
+    .then(resp => resp.json())
+    .then(json => {
+      this.setState({ allStatus: json.reverse() });
+    });
+  };
+
   getAllEvents = () => {
     this.state.users.map(user => {
       fetch("https://api.github.com/users/" + user.login + "/events?per_page=5")
@@ -91,32 +106,16 @@ export default class ConnectContainer extends Component {
     });
   };
 
-  getAllUsers = () => {
-    fetch(`http://localhost:3000/users/`)
-      .then(resp => resp.json())
-      .then(json => {
-        this.setState({ users: json });
-      })
-      .then(this.getAllEvents);
-  };
-
-  getAllStatus = () => {
-    fetch(`http://localhost:3000/daily_status/`)
-      .then(resp => resp.json())
-      .then(json => {
-        this.setState({ allStatus: json.reverse() });
-      });
-  };
-
+  // Update a user's current 'status' i.e. what they're working on
   addStatus = (event, userID) => {
-    console.log("added status for: ");
-
     let input = event.currentTarget.statusInput.value;
+    // Handle blank submission
     if (input.trim().length === 0) {
       alert("Please enter a status!");
       return;
     }
     let body = { dailyStatus: { user_id: userID, status: input } };
+    // Post to DB and store in state
     fetch(STATUS_URL, {
       method: "POST",
       headers: {
@@ -132,6 +131,45 @@ export default class ConnectContainer extends Component {
     event.currentTarget.reset();
   };
 
+  //Filters through all statuses and returns a user's latest
+  findLastUserStatusesById = user_id => {
+    let lastStatus = this.state.allStatus.filter(status => {
+      return status.user_id === user_id;
+    })[0];
+    if (lastStatus == undefined) {
+      return "No status yet...";
+    } else {
+      return lastStatus.status;
+    }
+  };
+
+  ///Filters through all events and returns a user's latest
+  findLastEventByUser = username => {
+    let lastEvent = this.state.allEvents.filter(event => {
+      return event.actor.login === username;
+    })[0];
+    if (lastEvent == undefined) {
+      return "event was undefined...";
+    } else {
+      return lastEvent;
+    }
+  };
+
+
+  findUserByUserName = username => {
+    return this.state.users.find(user => user.login === username);
+  };
+
+  findUserIdByUserName = username => {
+    let user = this.state.users.find(user => user.login === username);
+    return user.id;
+  };
+
+
+
+  /////////////////////////////////////////////////////////////////////////
+  // Rendering functions start here
+  /////////////////////////////////////////////////////////////////////////
   index = () => {
     return (
       <Grid columns={5}>
@@ -157,30 +195,6 @@ export default class ConnectContainer extends Component {
     );
   };
 
-  //Filters through all statuses and returns the latest
-  findLastUserStatusesById = user_id => {
-    let lastStatus = this.state.allStatus.filter(status => {
-      return status.user_id === user_id;
-    })[0];
-    if (lastStatus == undefined) {
-      return "No status yet...";
-    } else {
-      return lastStatus.status;
-    }
-  };
-
-  ///EVENT HERE
-  findLastEventByUser = username => {
-    let lastEvent = this.state.allEvents.filter(event => {
-      return event.actor.login === username;
-    })[0];
-    if (lastEvent == undefined) {
-      return "event was undefined...";
-    } else {
-      return lastEvent;
-    }
-  };
-
   details = props => {
     return (
       <DetailsContainer
@@ -189,15 +203,6 @@ export default class ConnectContainer extends Component {
         users={this.state.users}
       />
     );
-  };
-
-  findUserByUserName = username => {
-    return this.state.users.find(user => user.login === username);
-  };
-
-  findUserIdByUserName = username => {
-    let user = this.state.users.find(user => user.login === username);
-    return user.id;
   };
 
   showUserDetails = props => {
