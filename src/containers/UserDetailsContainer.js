@@ -9,22 +9,6 @@ import { Grid } from "semantic-ui-react";
 export default class UserDetailsContainer extends React.Component {
   // Write out user details instead of calling UserCard
 
-  constructor() {
-    super();
-
-    this.state = {
-      allEvents: []
-    };
-  }
-
-  componentDidMount = () => {
-    fetch(`http://localhost:3000/events/${this.props.userObj.id}`)
-      .then(resp => resp.json())
-      .then(json => {
-        this.setState({ allEvents: json });
-      });
-  };
-
   render() {
     return (
       <Grid columns={3} divided>
@@ -44,7 +28,7 @@ export default class UserDetailsContainer extends React.Component {
           </Grid.Column>
           <Grid.Column>
             <EventsList
-              eventsList={this.state.allEvents}
+              eventsList={this.props.allEvents}
               user={this.props.userObj}
             />
           </Grid.Column>

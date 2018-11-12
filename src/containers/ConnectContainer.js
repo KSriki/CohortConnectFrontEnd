@@ -206,6 +206,9 @@ export default class ConnectContainer extends Component {
       <UserDetailsContainer
         userObj={this.findUserByUserName(props.match.params.username)}
         addStatus={this.addStatus}
+        allEvents={this.state.allEvents.filter(event =>{
+          return (event.actor.login === props.match.params.username)
+        })}
         allUserStatuses={this.state.allStatus.filter(status => {
           return (
             status.user_id ===
