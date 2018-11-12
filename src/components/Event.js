@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Feed, List } from "semantic-ui-react";
+import { List, Item } from "semantic-ui-react";
 import { getDifference } from "../containers/ConnectContainer";
 
 export default class Event extends React.Component {
@@ -23,23 +23,12 @@ export default class Event extends React.Component {
     }
 
     return (
-      <Feed.Event>
-        <Feed.Content>
-        {/* eslint-disable-next-line */}
-          <Feed.Summary>
-            {eventType}{" "}
-
-              {repoName}
-          
-            <Feed.Date>{ago}</Feed.Date>
-          </Feed.Summary>
-          <Feed.Extra text>{/* eslint-disable-next-line */}</Feed.Extra>
-        </Feed.Content>
-      </Feed.Event>
+      <Item>
+        <Item.Header>
+          {eventType}: {repoName}
+        </Item.Header>
+        <Item.Description>{ago}</Item.Description>
+      </Item>
     );
   }
 }
-
-// <a onClick={() => window.open(repo_url, "_blank")}>
-//   {gitEvent.repo_name}
-// </a>

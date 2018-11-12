@@ -82,8 +82,10 @@ export default class Status extends React.Component {
         <Feed.Label image={user.avatar_url} />
         <Feed.Content>
           <Feed.Summary>
-          {/* eslint-disable-next-line */}
-            <a onClick={()=> window.open(user.html_url, "_blank")}>{user.login}</a>{" "}
+            {/* eslint-disable-next-line */}
+            <a onClick={() => window.open(user.html_url, "_blank")}>
+              {user.login}
+            </a>{" "}
             <Feed.Date>{ago}</Feed.Date>
           </Feed.Summary>
           <Feed.Extra text>{thisStatus.status}</Feed.Extra>
