@@ -22,7 +22,6 @@ export default class ConnectContainer extends Component {
      this.getAllUsers();
      this.getAllStatus();
 
-
   }
 
   getAllUsers = () => {
@@ -53,6 +52,10 @@ export default class ConnectContainer extends Component {
     console.log("added status for: ");
 
     let input = event.currentTarget.statusInput.value;
+    if(input.trim().length === 0){
+        alert("Please enter a status!")
+        return;
+    }
     let body = { dailyStatus: {user_id: userID, status: input} };
     fetch(STATUS_URL, {
       method: "POST",
@@ -63,8 +66,11 @@ export default class ConnectContainer extends Component {
       body: JSON.stringify(body)
     })
       .then(r => r.json())
-      .then(status => this.setState({allStatus: [status, ...this.state.allStatus]}));
-  };
+      .then(status => {
+          this.setState({allStatus: [status, ...this.state.allStatus]});
+      });
+     event.currentTarget.reset();
+  }
 
   index = () => {
     return (

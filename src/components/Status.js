@@ -12,8 +12,6 @@ function getDifference(status_date){
     let difference = today - status_date;
     let seconds = Math.floor(difference / 1000);
 
-    console.log(seconds)
-
     if (seconds === 0) {
         ago = "Just now";
     } else {
@@ -75,13 +73,14 @@ export default class Status extends React.Component {
 
         let ago = getDifference(status_date);
 
-        return (<Feed.Event>
+        return (
+        <Feed.Event>
             <Feed.Label image={user.avatar_url}/>
             <Feed.Content>
                 <Feed.Summary>
                     <a href={user.html_url}>{user.login}</a> <Feed.Date>{ago}</Feed.Date>
                 </Feed.Summary>
-                <Feed.Extra text="text">
+                <Feed.Extra text>
                     {thisStatus.status}
                 </Feed.Extra>
             </Feed.Content>
