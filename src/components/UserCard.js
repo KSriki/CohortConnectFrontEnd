@@ -14,7 +14,10 @@ export default class UserCard extends React.Component {
         <Image src={user.avatar_url} alt="broken" />
         <Card.Content>
           <Card.Description>
-            {this.props.lastestStatus}
+            <strong>Latest Status:</strong><br/> {this.props.lastestStatus}
+          </Card.Description>
+          <Card.Description>
+          "event"
           </Card.Description>
         </Card.Content>
         <Card.Content>

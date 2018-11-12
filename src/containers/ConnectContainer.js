@@ -13,7 +13,8 @@ export default class ConnectContainer extends Component {
     super();
     this.state = {
       users: [],
-      allStatus: []
+      allStatus: [],
+      activeUser: []
     };
   }
   componentDidMount() {
@@ -62,6 +63,13 @@ export default class ConnectContainer extends Component {
     event.currentTarget.reset();
   };
 
+  // handleCardClick = (username) =>{
+  //   debugger
+  //   this.setState({
+  //     activeUser: this.findUserByUserName(username)
+  //   })
+  // }
+
   index = () => {
     return (
       <Grid columns={5}>
@@ -75,6 +83,7 @@ export default class ConnectContainer extends Component {
                     key={user.id}
                     userObj={user}
                     lastestStatus={lastStatus}
+
                   />
                 </Link>
               </Grid.Column>
@@ -91,7 +100,7 @@ export default class ConnectContainer extends Component {
       return status.user_id === user_id;
     })[0];
     if (lastStatus == undefined){
-      return "No status ever"
+      return "No status yet..."
     } else {
       return lastStatus.status
     }
