@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import UserCard from "../components/UserCard";
 import DetailsContainer from "./DetailsContainer";
 import { Grid } from "semantic-ui-react";
-import UserDetails from "../components/UserDetails";
+import UserDetailsContainer from "./UserDetailsContainer";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 const STATUS_URL = "http://localhost:3000/daily_status/create";
@@ -22,7 +22,6 @@ export default class ConnectContainer extends Component {
      this.getAllUsers();
      this.getAllStatus();
 
-
   }
 
   getAllUsers = () => {
@@ -40,7 +39,7 @@ export default class ConnectContainer extends Component {
       fetch(`http://localhost:3000/daily_status/`)
         .then(resp => resp.json())
         .then(json => {
-            this.setState({ allStatus: json });
+            this.setState({ allStatus: json.reverse() });
             // localStorage.allStatus = JSON.stringify(this.state.allStatus);
         });
 
@@ -53,6 +52,10 @@ export default class ConnectContainer extends Component {
     console.log("added status for: ");
 
     let input = event.currentTarget.statusInput.value;
+    if(input.trim().length === 0){
+        alert("Please enter a status!")
+        return;
+    }
     let body = { dailyStatus: {user_id: userID, status: input} };
     fetch(STATUS_URL, {
       method: "POST",
@@ -63,8 +66,11 @@ export default class ConnectContainer extends Component {
       body: JSON.stringify(body)
     })
       .then(r => r.json())
-      .then(console.log);
-  };
+      .then(status => {
+          this.setState({allStatus: [status, ...this.state.allStatus]});
+      });
+     event.currentTarget.reset();
+  }
 
   index = () => {
     return (
@@ -117,7 +123,7 @@ export default class ConnectContainer extends Component {
   showUserDetails = props => {
       console.log(props);
     return (
-      <UserDetails
+      <UserDetailsContainer
         userObj={this.findUserByUserName(props.match.params.username)}
         addStatus={this.addStatus}
         allUserStatuses={

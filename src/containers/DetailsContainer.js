@@ -2,7 +2,7 @@ import React from 'react'
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import UserDetails from '../components/UserDetails'
+import UserDetailsContainer from './UserDetailsContainer'
 
 
 
@@ -17,7 +17,7 @@ import UserDetails from '../components/UserDetails'
          //// <Route exact path='/details' component={FullRoster}/>
          return (
              <Switch>
-             <Route path='/details/:number' component={(props) => <UserDetails {...props} addStatus={this.props.addStatus} users={this.props.users} />}/>
+             <Route path='/details/:number' component={(props) => <UserDetailsContainer {...props} addStatus={this.props.addStatus} users={this.props.users} />}/>
              </Switch>
          );
 
