@@ -8,7 +8,6 @@ import { Grid } from "semantic-ui-react";
 
 export default class UserDetailsContainer extends React.Component {
   // Write out user details instead of calling UserCard
-
   render() {
     return (
       <Grid columns={3} divided>
