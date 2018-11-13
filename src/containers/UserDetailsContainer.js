@@ -10,7 +10,7 @@ export default class UserDetailsContainer extends React.Component {
   render() {
     return (
       <Grid columns="equal" >
-        <Grid.Row>
+        <Grid.Row stretched={true}>
           <Grid.Column>
             <UserProfile userObj={this.props.userObj} />
           </Grid.Column>

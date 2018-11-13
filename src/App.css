@@ -22,6 +22,11 @@
   color: #61dafb;
 }
 
+.landing-image {
+    background-image: url('./background.jpg') !important;
+    background-size: cover !important;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

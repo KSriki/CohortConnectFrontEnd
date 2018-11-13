@@ -5,10 +5,11 @@ import ConnectContainer from "./containers/ConnectContainer";
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div className="App
+      ">
         <ConnectContainer />
         <div className="ui footer">
-          <div>Cohort Connect | 2018 | "Puts Rspec on My Name" | Srikant Kalaputapu // Dru Edmondson</div>
+          <div>Cohort Connect | "Puts Rspec on My Name" | 2018 // Srikant Kalaputapu // Dru Edmondson</div>
         </div>
       </div>
     );

@@ -2,11 +2,7 @@ import React from "react";
 import { Card, Icon, Image, Container } from "semantic-ui-react";
 import Event from "./Event.js"
 
-
 export default class UserCard extends React.Component {
-  handleStatus = props => {
-    console.log(props);
-  };
 
   render() {
     let user = this.props.userObj;
@@ -17,7 +13,7 @@ export default class UserCard extends React.Component {
       login = user.login
     }
     return (
-      <Card className="ui card">
+      <Card className="ui card" style={{height: "100%"}}>
         <Image src={avatar_url} alt="broken" />
         <Card.Content>
           <Card.Description>

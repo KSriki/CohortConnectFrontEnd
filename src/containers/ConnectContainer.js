@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-
 import UserCard from "../components/UserCard";
-import DetailsContainer from "./DetailsContainer";
 import { Grid } from "semantic-ui-react";
 import UserDetailsContainer from "./UserDetailsContainer";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
@@ -169,7 +167,7 @@ export default class ConnectContainer extends Component {
   /////////////////////////////////////////////////////////////////////////
   index = () => {
     return (
-      <Grid columns={5}>
+      <Grid columns={5} celled={true} >
         <Grid.Row>
           {this.state.users.map(user => {
             let lastStatus = this.findLastUserStatusesById(user.id);
@@ -189,16 +187,6 @@ export default class ConnectContainer extends Component {
           })}
         </Grid.Row>
       </Grid>
-    );
-  };
-
-  details = props => {
-    return (
-      <DetailsContainer
-        {...props}
-        addStatus={this.addStatus}
-        users={this.state.users}
-      />
     );
   };
 
