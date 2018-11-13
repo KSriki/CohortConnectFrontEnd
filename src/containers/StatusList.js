@@ -11,8 +11,8 @@ export default class StatusList extends React.Component{
     render(){
 
         return (<Feed>
-          
-            {this.props.allUserStatuses.map(status => {
+
+            {this.props.allUserStatuses.slice(0,5).map(status => {
                 return (<Status key={status.id} statusObj={status} userObj={this.props.userObj}/>)
             })}
             </Feed>)

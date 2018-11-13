@@ -9,7 +9,7 @@ import { Grid } from "semantic-ui-react";
 export default class UserDetailsContainer extends React.Component {
   render() {
     return (
-      <Grid columns="equal">
+      <Grid columns="equal" >
         <Grid.Row>
           <Grid.Column>
             <UserProfile userObj={this.props.userObj} />
