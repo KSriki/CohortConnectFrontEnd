@@ -24,6 +24,7 @@ export default class UserDetailsContainer extends React.Component {
             <StatusList
               allUserStatuses={this.props.allUserStatuses}
               userObj={this.props.userObj}
+              handleTrashButton={this.props.handleTrashButton}
             />
           </Grid.Column>
           <Grid.Column>

@@ -81,19 +81,19 @@ export default class ConnectContainer extends Component {
 
   getAllUsers = () => {
     fetch(`http://localhost:3000/users/`)
-    .then(resp => resp.json())
-    .then(json => {
-      this.setState({ users: json });
-    })
-    .then(this.getAllEvents);
+      .then(resp => resp.json())
+      .then(json => {
+        this.setState({ users: json });
+      })
+      .then(this.getAllEvents);
   };
 
   getAllStatus = () => {
     fetch(`http://localhost:3000/daily_status/`)
-    .then(resp => resp.json())
-    .then(json => {
-      this.setState({ allStatus: json.reverse() });
-    });
+      .then(resp => resp.json())
+      .then(json => {
+        this.setState({ allStatus: json.reverse() });
+      });
   };
 
   getAllEvents = () => {
@@ -155,7 +155,6 @@ export default class ConnectContainer extends Component {
     }
   };
 
-
   findUserByUserName = username => {
     return this.state.users.find(user => user.login === username);
   };
@@ -164,8 +163,6 @@ export default class ConnectContainer extends Component {
     let user = this.state.users.find(user => user.login === username);
     return user.id;
   };
-
-
 
   /////////////////////////////////////////////////////////////////////////
   // Rendering functions start here
@@ -205,13 +202,32 @@ export default class ConnectContainer extends Component {
     );
   };
 
+  handleTrashButton = statusObj => {
+    fetch(`http://localhost:3000/daily_status/delete/${statusObj.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      }
+    })
+      .then(r => r.json())
+      .then(() => {
+        let copy = [...this.state.allStatus];
+        let index = copy.indexOf(statusObj);
+        this.setState({
+          allStatus: [...copy.slice(0, index), ...copy.slice(index + 1)]
+        });
+      });
+  };
+
   showUserDetails = props => {
     return (
       <UserDetailsContainer
+        handleTrashButton={this.handleTrashButton}
         userObj={this.findUserByUserName(props.match.params.username)}
         addStatus={this.addStatus}
-        allEvents={this.state.allEvents.filter(event =>{
-          return (event.actor.login === props.match.params.username)
+        allEvents={this.state.allEvents.filter(event => {
+          return event.actor.login === props.match.params.username;
         })}
         allUserStatuses={this.state.allStatus.filter(status => {
           return (
