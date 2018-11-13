@@ -136,7 +136,7 @@ export default class ConnectContainer extends Component {
     let lastStatus = this.state.allStatus.filter(status => {
       return status.user_id === user_id;
     })[0];
-    if (lastStatus == undefined) {
+    if (lastStatus === undefined) {
       return "No status yet...";
     } else {
       return lastStatus.status;
@@ -148,7 +148,7 @@ export default class ConnectContainer extends Component {
     let lastEvent = this.state.allEvents.filter(event => {
       return event.actor.login === username;
     })[0];
-    if (lastEvent == undefined) {
+    if (lastEvent === undefined) {
       return "event was undefined...";
     } else {
       return lastEvent;
@@ -206,7 +206,6 @@ export default class ConnectContainer extends Component {
   };
 
   showUserDetails = props => {
-    console.log(props);
     return (
       <UserDetailsContainer
         userObj={this.findUserByUserName(props.match.params.username)}

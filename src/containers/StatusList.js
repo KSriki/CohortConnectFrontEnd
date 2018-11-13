@@ -11,6 +11,7 @@ export default class StatusList extends React.Component{
     render(){
 
         return (<Feed>
+          
             {this.props.allUserStatuses.map(status => {
                 return (<Status key={status.id} statusObj={status} userObj={this.props.userObj}/>)
             })}
