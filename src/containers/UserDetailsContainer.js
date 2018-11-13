@@ -14,16 +14,20 @@ export default class UserDetailsContainer extends React.Component {
             <UserProfile userObj={this.props.userObj} />
           </Grid.Column>
           <Grid.Column>
-            <h1> User Statuses </h1>
-            <StatusForm
-              user={this.props.userObj}
-              addStatus={this.props.addStatus}
-            />
-            <StatusList
-              allUserStatuses={this.props.allUserStatuses}
-              userObj={this.props.userObj}
-              handleTrashButton={this.props.handleTrashButton}
-            />
+            <Grid.Row>
+              <h1> User Statuses </h1>
+              <StatusForm
+                user={this.props.userObj}
+                addStatus={this.props.addStatus}
+              />
+            </Grid.Row>
+            <Grid.Row>
+              <StatusList
+                allUserStatuses={this.props.allUserStatuses}
+                userObj={this.props.userObj}
+                handleTrashButton={this.props.handleTrashButton}
+              />
+            </Grid.Row>
           </Grid.Column>
           <Grid.Column>
             <EventsList

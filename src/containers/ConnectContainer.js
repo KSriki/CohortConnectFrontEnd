@@ -186,7 +186,7 @@ export default class ConnectContainer extends Component {
   /////////////////////////////////////////////////////////////////////////
   index = () => {
     return (
-      <Grid columns={5} celled={true}>
+      <Grid columns={5} celled={true} stackable={true}>
         <Grid.Row>
           {this.state.users.map(user => {
             let lastStatus = this.findLastUserStatusesById(user.id);
