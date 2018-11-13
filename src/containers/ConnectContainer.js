@@ -6,13 +6,13 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 const STATUS_URL = "http://localhost:3000/daily_status/create";
 
-//finds the difference in todays date and the date the post was made
+// Finds the difference in todays date and the date an event/status was made
 export function getDifference(status_date) {
-  //get todays date
   let today = new Date();
-  //Return post or event creation date in a readable format using toLocaleDateString
-  //example: 11/7/2018
+  // Return event/status creation date in a readable format using
+  // toLocaleDateString. Example: 11/7/2018
   let ago = status_date.toLocaleDateString();
+
   // first gets the difference in milliseconds
   let difference = today - status_date;
   // then get seconds from milliseconds and round down
@@ -112,8 +112,8 @@ export default class ConnectContainer extends Component {
       alert("Please enter a status!");
       return;
     }
-    let body = { dailyStatus: { user_id: userID, status: input } };
     // Post to DB and store in state
+    let body = { dailyStatus: { user_id: userID, status: input } };
     fetch(STATUS_URL, {
       method: "POST",
       headers: {
@@ -129,7 +129,7 @@ export default class ConnectContainer extends Component {
     event.currentTarget.reset();
   };
 
-  //Filters through all statuses and returns a user's latest
+  // Filters through all statuses and returns a user's latest
   findLastUserStatusesById = user_id => {
     let lastStatus = this.state.allStatus.filter(status => {
       return status.user_id === user_id;
@@ -141,7 +141,7 @@ export default class ConnectContainer extends Component {
     }
   };
 
-  ///Filters through all events and returns a user's latest
+  ///Filters through all GitHub events and returns a user's latest
   findLastEventByUser = username => {
     let lastEvent = this.state.allEvents.filter(event => {
       return event.actor.login === username;
@@ -151,6 +151,25 @@ export default class ConnectContainer extends Component {
     } else {
       return lastEvent;
     }
+  };
+
+  // Delete a user's status; called from a user's details page
+  handleTrashButton = statusObj => {
+    fetch(`http://localhost:3000/daily_status/delete/${statusObj.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      }
+    })
+      .then(r => r.json())
+      .then(() => {
+        let copy = [...this.state.allStatus];
+        let index = copy.indexOf(statusObj);
+        this.setState({
+          allStatus: [...copy.slice(0, index), ...copy.slice(index + 1)]
+        });
+      });
   };
 
   findUserByUserName = username => {
@@ -167,7 +186,7 @@ export default class ConnectContainer extends Component {
   /////////////////////////////////////////////////////////////////////////
   index = () => {
     return (
-      <Grid columns={5} celled={true} >
+      <Grid columns={5} celled={true}>
         <Grid.Row>
           {this.state.users.map(user => {
             let lastStatus = this.findLastUserStatusesById(user.id);
@@ -188,24 +207,6 @@ export default class ConnectContainer extends Component {
         </Grid.Row>
       </Grid>
     );
-  };
-
-  handleTrashButton = statusObj => {
-    fetch(`http://localhost:3000/daily_status/delete/${statusObj.id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      }
-    })
-      .then(r => r.json())
-      .then(() => {
-        let copy = [...this.state.allStatus];
-        let index = copy.indexOf(statusObj);
-        this.setState({
-          allStatus: [...copy.slice(0, index), ...copy.slice(index + 1)]
-        });
-      });
   };
 
   showUserDetails = props => {
@@ -232,7 +233,6 @@ export default class ConnectContainer extends Component {
       <Router>
         <Switch>
           <Route exact path="/" component={this.index} />
-          {/* both /details and /details id begin with /detail */}
           <Route path="/:username" render={this.showUserDetails} />
         </Switch>
       </Router>

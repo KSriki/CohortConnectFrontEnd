@@ -1,5 +1,4 @@
 import React from "react";
-// import UserCard from "../components/UserCard";
 import StatusForm from "../components/StatusForm";
 import StatusList from "./StatusList";
 import EventsList from "./EventsList";
@@ -9,7 +8,7 @@ import { Grid } from "semantic-ui-react";
 export default class UserDetailsContainer extends React.Component {
   render() {
     return (
-      <Grid columns="equal" >
+      <Grid columns="equal">
         <Grid.Row stretched={true}>
           <Grid.Column>
             <UserProfile userObj={this.props.userObj} />
@@ -20,7 +19,6 @@ export default class UserDetailsContainer extends React.Component {
               user={this.props.userObj}
               addStatus={this.props.addStatus}
             />
-
             <StatusList
               allUserStatuses={this.props.allUserStatuses}
               userObj={this.props.userObj}

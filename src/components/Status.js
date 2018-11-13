@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Feed, Button } from "semantic-ui-react";
 import { getDifference } from "../containers/ConnectContainer";
 

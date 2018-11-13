@@ -2,12 +2,14 @@ import React from "react";
 import { Icon } from "semantic-ui-react";
 
 const UserProfile = props => {
+  // Placeholders on page while fetch promise is being fulfilled
   let avatar_url = "Loading avatar url";
   let name = "Loading name";
   let login = "Username";
   let html_url = "link...";
   let bio = "Programmer bio";
 
+  // One userObj is inherited from the Fetch
   if (props.userObj) {
     avatar_url = props.userObj.avatar_url;
     name = props.userObj.name;
@@ -33,7 +35,6 @@ const UserProfile = props => {
           <a href={html_url}>{login}</a>
         </strong>
       </p>
-
       <p>{bio}</p>
     </div>
   );

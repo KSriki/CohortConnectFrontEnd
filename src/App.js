@@ -9,7 +9,7 @@ class App extends Component {
       ">
         <ConnectContainer />
         <div className="ui footer">
-          <div>Cohort Connect | "Puts Rspec on My Name" | 2018 // Srikant Kalaputapu // Dru Edmondson</div>
+          <div>Cohort Connect | "Puts Rspec on My Name" | Srikant Kalaputapu // Dru Edmondson | 2018</div>
         </div>
       </div>
     );
