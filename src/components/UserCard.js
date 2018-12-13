@@ -36,7 +36,6 @@ export default class UserCard extends React.Component {
             {login}
           </p>
         </Card.Content>
-        <Card.Content className="extra content" />
       </Card>
     );
   }

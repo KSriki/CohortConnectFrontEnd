@@ -106,6 +106,7 @@ export default class ConnectContainer extends Component {
           this.setState({ allEvents: [...this.state.allEvents, ...events] })
         );
     });
+
   };
 
   // Update a user's current 'status' i.e. what they're working on
@@ -190,8 +191,8 @@ export default class ConnectContainer extends Component {
   /////////////////////////////////////////////////////////////////////////
   index = () => {
     return (
-      <Grid columns={5} stackable={true}>
-        <Grid.Row>
+      <Grid columns={5} stackable={true} padded relaxed >
+
           {this.state.users.map(user => {
             let lastStatus = this.findLastUserStatusesById(user.id);
             let latestEvent = this.findLastEventByUser(user.login);
@@ -208,7 +209,7 @@ export default class ConnectContainer extends Component {
               </Grid.Column>
             );
           })}
-        </Grid.Row>
+
       </Grid>
     );
   };
