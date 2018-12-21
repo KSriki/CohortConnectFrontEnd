@@ -23,8 +23,16 @@
 }
 
 .landing-image {
-    background-image: url('./background.jpg') !important;
-    background-size: cover !important;
+  background-image: url("./background.jpg") !important;
+  background-size: cover !important;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10%;
+  width: 50%;
 }
 
 @keyframes App-logo-spin {

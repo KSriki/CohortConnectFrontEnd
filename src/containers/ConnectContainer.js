@@ -4,7 +4,10 @@ import { Grid } from "semantic-ui-react";
 import UserDetailsContainer from "./UserDetailsContainer";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
-const STATUS_URL = "http://localhost:3000/daily_status/create";
+const USERS_URL = "http://localhost:3000/users"
+const STATUS_URL = "http://localhost:3000/daily_status/"
+const CREATE_STATUS_URL = "http://localhost:3000/daily_status/create";
+const DELETE_STATUS_URL = "http://localhost:3000/daily_status/delete"
 
 // Finds the difference in todays date and the date an event/status was made
 export function getDifference(status_date) {
@@ -78,7 +81,7 @@ export default class ConnectContainer extends Component {
   }
 
   getAllUsers = () => {
-    fetch(`http://localhost:3000/users/`)
+    fetch(USERS_URL)
       .then(resp => resp.json())
       .then(json => {
         this.setState({ users: json });
@@ -87,13 +90,14 @@ export default class ConnectContainer extends Component {
   };
 
   getAllStatus = () => {
-    fetch(`http://localhost:3000/daily_status/`)
+    fetch(STATUS_URL)
       .then(resp => resp.json())
       .then(json => {
         this.setState({ allStatus: json.reverse() });
       });
   };
 
+  // Get last 5 GitHub Events for each user
   getAllEvents = () => {
     this.state.users.map(user => {
       fetch("https://api.github.com/users/" + user.login + "/events?per_page=5")
@@ -102,6 +106,7 @@ export default class ConnectContainer extends Component {
           this.setState({ allEvents: [...this.state.allEvents, ...events] })
         );
     });
+
   };
 
   // Update a user's current 'status' i.e. what they're working on
@@ -114,7 +119,7 @@ export default class ConnectContainer extends Component {
     }
     // Post to DB and store in state
     let body = { dailyStatus: { user_id: userID, status: input } };
-    fetch(STATUS_URL, {
+    fetch(CREATE_STATUS_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -129,7 +134,7 @@ export default class ConnectContainer extends Component {
     event.currentTarget.reset();
   };
 
-  // Filters through all statuses and returns a user's latest
+  // Filters through all statuses and returns a users latest
   findLastUserStatusesById = user_id => {
     let lastStatus = this.state.allStatus.filter(status => {
       return status.user_id === user_id;
@@ -141,7 +146,7 @@ export default class ConnectContainer extends Component {
     }
   };
 
-  ///Filters through all GitHub events and returns a user's latest
+  // Filters through all GitHub events and returns a user's latest
   findLastEventByUser = username => {
     let lastEvent = this.state.allEvents.filter(event => {
       return event.actor.login === username;
@@ -155,7 +160,7 @@ export default class ConnectContainer extends Component {
 
   // Delete a user's status; called from a user's details page
   handleTrashButton = statusObj => {
-    fetch(`http://localhost:3000/daily_status/delete/${statusObj.id}`, {
+    fetch(DELETE_STATUS_URL + `/${statusObj.id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -187,8 +192,8 @@ export default class ConnectContainer extends Component {
   /////////////////////////////////////////////////////////////////////////
   index = () => {
     return (
-      <Grid columns={5} celled={true} stackable={true}>
-        <Grid.Row>
+      <Grid columns={5} stackable={true} padded relaxed >
+
           {this.state.users.map(user => {
             let lastStatus = this.findLastUserStatusesById(user.id);
             let latestEvent = this.findLastEventByUser(user.login);
@@ -205,7 +210,7 @@ export default class ConnectContainer extends Component {
               </Grid.Column>
             );
           })}
-        </Grid.Row>
+
       </Grid>
     );
   };

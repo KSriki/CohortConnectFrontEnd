@@ -27,6 +27,7 @@ const UserProfile = props => {
         src={avatar_url}
         alt="Github Profile Pic"
         className="ui medium rounded image"
+        className="center"
       />
       <h3>{name}</h3>
       <p>
