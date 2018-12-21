@@ -1,44 +1,82 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# CohortConnect
 
-## Available Scripts
+<b>A digital bulletin board for students in the same coding class based on real-time GitHub API data</b>
 
-In the project directory, you can run:
+This application was created to allow students in our cohort to view each others github activity. It allows users to also have "Statuses" kind of like writing on a blackboard. This project was made for our mod 4 project in order to further our understanding of React. Implements React-Router and Semantic-UI.
 
-### `npm start`
+## Tech/framework used
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This is a Single-Page Application.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+<b>Built with</b>
+- [React](https://reactjs.org/)
+- [Ruby on Rails](https://rubyonrails.org/)
+- [Semantic UI](https://react.semantic-ui.com/)
+- [Github API](https://developer.github.com/v3/)
 
-### `npm test`
+## Features
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Allows students in the same coding class to view basic Github information of other students.
+- Allows students to view each others latest Git Event activity.
+- Allows students to write on their own personal "Blackboard" page of what they are up to.
+- Allows students to delete statuses on their blackboard.
 
-### `npm run build`
+## Possible future features
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- User Authentication
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+## Collaborators
+- [@KSriki](https://github.com/KSriki)
+- [@drubaby](https://github.com/drubaby/)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## How to use
 
-### `npm run eject`
+[BackEnd](https://github.com/KSriki/CohortConnectBackend) requires Ruby and Bundler
+FrontEnd requires Git and Node Package Manager
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+In Terminal/Console:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+ # Clone the repos into the same folder
+ $ git clone git@github.com:KSriki/CohortConnectFrontEnd.git
+ $ git clone git@github.com:KSriki/CohortConnectBackend.git
+ 
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+ # navigate to backend
+ $ cd CohortConnectBackend
+ 
+ # setup backend
+ $ bundle install
+ 
+ # create the database
+ $ rails db:create
+ 
+ # migrate the database (add tables etc.)
+ $ rails db:migrate
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+ # seed the database with base data
+ $ rails db:seed
 
-## Learn More
+ # run the server
+ $ rails s
+ 
+ ## In another terminal window set up front end
+ $ cd CohortConnectFrontEnd
+ 
+ # Install the packages
+ $ npm install
+ 
+ # start the server
+ $ npm start
+ 
+ # Type and enter 'yes' when asked for different port (3000 is taken by the backend)
+ 
+```
+## Screenshots
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+| Homepage  | UserBoard | 
+| ------------- | ------------- | 
+| <img src="assets/HomePage.png" alt="homepage" width="250" height="500" />   | <img src="assets/UserBoard.png" alt="showpage" width="250" height="500" />  | 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+
+
