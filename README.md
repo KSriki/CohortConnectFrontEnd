@@ -31,7 +31,7 @@ This is a Single-Page Application.
 
 ## How to use
 
-[BackEnd](https://github.com/KSriki/CohortConnectBackend) requires Ruby and Bundler
+[BackEnd](https://github.com/KSriki/CohortConnectBackend) requires Ruby and Bundler . 
 FrontEnd requires Git and Node Package Manager
 
 In Terminal/Console:
