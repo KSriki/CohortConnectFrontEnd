@@ -177,6 +177,7 @@ export default class ConnectContainer extends Component {
   };
 
   findUserIdByUserName = username => {
+
     let user = this.state.users.find(user => user.login === username);
     return user.id;
   };
