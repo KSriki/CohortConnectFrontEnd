@@ -74,9 +74,11 @@ In Terminal/Console:
 ```
 ## Screenshots
 
-| Homepage  | UserBoard | 
-| ------------- | ------------- | 
-| <img src="assets/HomePage.png" alt="homepage" width="250" height="500" />   | <img src="assets/UserBoard.png" alt="showpage" width="250" height="500" />  | 
+| Homepage  |
+| ------------- | 
+| <img src="assets/HomePage.png" alt="homepage" /> | 
 
-
+| UserBoard | 
+| ------------- | 
+|  <img src="assets/UserBoard.png" alt="showpage" /> |
 
