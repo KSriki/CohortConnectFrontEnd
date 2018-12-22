@@ -2,7 +2,7 @@
 
 <b>A digital bulletin board for students in the same coding class based on real-time GitHub API data</b>
 
-This application was created to allow students in our cohort to view each others github activity. It allows users to also have "Statuses" kind of like writing on a blackboard. This project was made for our mod 4 project in order to further our understanding of React. Implements React-Router and Semantic-UI.
+This application was created to allow students in our cohort to view each others github activity. It allows users to also have "Statuses" kind of like writing on a blackboard. This project was made for our mod 4 project for the FlatIron School (Tech Bootcamp) in order to further our understanding of React. Implements React-Router and Semantic-UI.
 
 ## Tech/framework used
 
@@ -26,8 +26,8 @@ This is a Single-Page Application.
 - User Authentication
 
 ## Collaborators
-- [@KSriki](https://github.com/KSriki)
-- [@drubaby](https://github.com/drubaby/)
+- Srikant Kumar Kalaputapu, [@KSriki](https://github.com/KSriki)
+- Andrew Edmondson, [@drubaby](https://github.com/drubaby/)
 
 ## How to use
 
