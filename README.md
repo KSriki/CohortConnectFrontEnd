@@ -4,6 +4,10 @@
 
 This application was created to allow students in our cohort to view each others github activity. It allows users to also have "Statuses" kind of like writing on a blackboard. This project was made for our mod 4 project for the FlatIron School (Tech Bootcamp) in order to further our understanding of React. Implements React-Router and Semantic-UI.
 
+## Demo
+
+Link to [Demo] (https://www.youtube.com/watch?v=PPyfLRagvj4)
+
 ## Tech/framework used
 
 This is a Single-Page Application.
